@@ -1,0 +1,39 @@
+package Page;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by skillsup on 19.04.16.
+ */
+public class PageObject {
+    private WebDriver driver;
+    private By linkourteam = By.linkText("Наша команда");
+    private By memberclass = By.className("member");
+    private static String baseUrl = "http://skillsup.ua/";
+
+    public void goToCoachPage(){
+        WebElement ourteam = driver.findElement(linkourteam);
+        ourteam.click();
+    }
+
+    private List<String> lookingPersonsByName() {
+        List<WebElement> element = driver.findElements(memberclass);
+        List<String> strings = new ArrayList<String>();
+
+        for (WebElement i : element) {
+            strings.add(i.getText());
+        }
+        return strings;
+    }
+    public PageObject(WebDriver driver){
+        this.driver = driver;
+        driver.get(baseUrl);
+        PageFactory.initElements(driver, this );
+    }
+}
