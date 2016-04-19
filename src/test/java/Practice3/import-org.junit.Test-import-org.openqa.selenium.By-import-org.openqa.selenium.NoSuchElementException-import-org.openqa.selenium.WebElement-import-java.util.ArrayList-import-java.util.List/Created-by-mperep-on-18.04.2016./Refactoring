@@ -1,0 +1,53 @@
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by mperep on 18.04.2016.
+ */
+public class SearchSkillsUpTeachers extends BaseClass{
+    private By linkourteam = By.linkText("Наша команда");
+    private By memberclass = By.className("member");
+    
+    public void goToCoachPage(){
+        WebElement ourteam = driver.findElement(linkourteam);
+        ourteam.click();
+    }
+
+    private List<String> lookingPersonsByName() {
+        List<WebElement> element = driver.findElements(memberclass);
+        List<String> strings = new ArrayList<String>();
+        
+        for (WebElement i : element) {
+            strings.add(i.getText());
+        }
+        return strings;
+    }
+        
+    @Test
+    public void testFoundTeacherGalkovskii() throws Exception{
+       goToCoachPage();
+        String coach1 = "Александр Галковский";
+        System.out.println("Teacher - Aleksandr Galkovskiy");
+        assertTrue("It is not Sasha", lookingPersonsByName().contains(coach1));
+    }
+    @Test
+    public void testFoundTeacherChokan() throws Exception{
+        goToCoachPage();
+        String coach2 = "Михаил Чокан"
+        System.out.println("Teacher - Michail Chokan");
+        assertTrue("It is not Misha", lookingPersonsByName().contains(coach2));
+    } 
+        @Test
+        public void testFoundTeacherKarpov() throws Exception{
+            goToCoachPage();
+            String coach3 = "Артем Карпов"
+            assertFalse("It is not Misha", lookingPersonsByName().contains(coach3));
+        }  
+         
+        
+        }
